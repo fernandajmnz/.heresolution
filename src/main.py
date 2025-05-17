@@ -7,14 +7,20 @@ import pandas as pd
 # Cargar datos
 pois = pd.read_csv("data/POIs/POI_4815075.csv")
 calles = gpd.read_file("data/STREETS_NAV/SREETS_NAV_4815075.geojson")
-nombres_calles = gpd.read_file("data/STREETS_NAMING/SREETS_NAMING_ADDRESSING_4815075.geojson")
+nombres_calles = gpd.read_file("data/STREETS_NAMING_ADDRESSING/SREETS_NAMING_ADDRESSING_4815075.geojson")
+
 
 resultados = []
 
+# Estandarizar nombres de columnas en minúsculas
+calles.columns = [col.lower() for col in calles.columns]
+nombres_calles.columns = [col.lower() for col in nombres_calles.columns]
+pois.columns = [col.upper() for col in pois.columns]  # si viene todo en mayúsculas
+
 for idx, poi in pois.iterrows():
     link_id = poi["LINK_ID"]
-    calle = calles[calles["LINK_ID"] == link_id]
-    nombres = nombres_calles[nombres_calles["LINK_ID"] == link_id]
+    calle = calles[calles["link_id"] == link_id]
+    nombres = nombres_calles[nombres_calles["link_id"] == link_id]
 
     if calle.empty:
         continue

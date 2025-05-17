@@ -5,38 +5,40 @@ def clasificar_poi(poi, calle_df, nombres_df):
     try:
         calle = calle_df.iloc[0]
         geom_calle = calle.geometry
-        perc = float(poi["PERCFFREF"])  # de 0 a 1
-        lado_real = poi["POI_ST_SD"]    # 'L' o 'R'
+        perc = float(poi["PERCFRREF"])  # entre 0 y 1
 
-        # Crear punto del POI
-        poi_geom = Point(poi["LONGITUDE"], poi["LATITUDE"])
+        # Obtener punto interpolado del POI
+        poi_geom = geom_calle.interpolate(perc * geom_calle.length)
 
-        # Verificar distancia
-        dist = distancia_a_calle(poi_geom, geom_calle)
-
-        # Verificar lado correcto
-        lado_esperado = obtener_lado_correcto(geom_calle, perc)
-
-        if dist > 20:
+        # Evaluar distancia
+        distancia = distancia_a_calle(poi_geom, geom_calle)
+        if distancia > 20:
             return {
                 'caso': 1,
-                'comentario': 'POI demasiado lejos de la calle'
+                'comentario': f'Distancia muy grande ({distancia:.2f}m)'
             }
-        elif lado_real != lado_esperado:
+
+        # Evaluar lado
+        lado_esperado = obtener_lado_correcto(geom_calle, perc)
+        lado_real = poi["POI_ST_SD"]
+        if lado_esperado != lado_real:
             return {
                 'caso': 2,
-                'comentario': f'Lado incorrecto (real: {lado_real}, esperado: {lado_esperado})'
+                'comentario': f'Lado incorrecto: real {lado_real}, esperado {lado_esperado}'
             }
-        elif es_multipledigit(dict(calle)) == False:
+
+        # Evaluar etiqueta MULTIDIGIT
+        if not es_multipledigit(calle):
             return {
                 'caso': 3,
-                'comentario': 'Calle marcada incorrectamente como MULTIDIGIT'
+                'comentario': 'MULTIDIGIT debería ser N'
             }
-        else:
-            return {
-                'caso': 4,
-                'comentario': 'Excepción válida'
-            }
+
+        # Todo correcto
+        return {
+            'caso': 4,
+            'comentario': 'Excepción válida o sin errores relevantes'
+        }
 
     except Exception as e:
         return {
