@@ -1,0 +1,19 @@
+# Entorno virtual
+.venv/
+
+# Archivos de VSCode
+.vscode/
+*.code-workspace
+
+# Archivos de Python compilados
+__pycache__/
+*.pyc
+
+# Salidas y resultados
+output/
+*.html
+*.csv
+
+# Otros
+.DS_Store
+Thumbs.db
