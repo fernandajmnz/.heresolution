@@ -17,3 +17,8 @@ output/
 # Otros
 .DS_Store
 Thumbs.db
+
+# Ignorar los archivos de datos pesados
+data/POIs/
+data/STREETS_NAV/
+data/STREETS_NAMING/
