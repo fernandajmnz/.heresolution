@@ -26,3 +26,5 @@ for idx, poi in pois.iterrows():
 # Guardar resultados
 pd.DataFrame(resultados).to_csv("output/resultados_validacion.csv", index=False)
 print("✅ Validación terminada.")
+
+#.venv\Scripts\activate  
