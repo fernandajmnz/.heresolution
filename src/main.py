@@ -56,3 +56,5 @@ df_resultados.to_csv("output/resultados_validacion.csv", index=False)
 print("✅ Validación completada.")
 
 #.venv\Scripts\activate  
+#python -m src.main
+#.venv\Scripts\activate  

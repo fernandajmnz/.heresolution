@@ -11,7 +11,7 @@ def clasificar_poi(poi, calle_df, nombres_df):
         dist = distancia_a_calle(poi_geom, geom_calle)
         lado_esperado = obtener_lado_correcto(geom_calle, perc)
 
-        if dist > 20:
+        if dist > 5:
             return {'caso': 1, 'comentario': 'POI demasiado lejos de la calle'}
         elif lado_real != lado_esperado:
             return {'caso': 2, 'comentario': f'Lado incorrecto (real: {lado_real}, esperado: {lado_esperado})'}
