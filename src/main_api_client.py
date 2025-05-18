@@ -18,7 +18,6 @@ for _, poi in pois.iterrows():
         "POI_ST_SD": poi["POI_ST_SD"]
     })
 
-
 # Enviar todo en un solo POST
 try:
     response = requests.post("http://localhost:5000/validar-pois", json=poi_list)
