@@ -35,3 +35,6 @@ Este repositorio contiene la base para una solución escalable e innovadora al p
 └── output/
 └── mapa_resultado.html ← Visualización con Folium
 
+
+Link a los archivos:
+https://drive.google.com/drive/folders/1NnV2LWUpB408KRTz0ushbRUTVCBGuI47?usp=sharing
