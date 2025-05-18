@@ -1,6 +1,5 @@
 def aplicar_correccion(poi, clasificacion):
     caso = clasificacion.get('caso', 4)
-
     if caso == 1:
         accion = 'eliminar'
     elif caso == 2:
@@ -11,9 +10,8 @@ def aplicar_correccion(poi, clasificacion):
         accion = 'marcar como excepción'
     else:
         accion = 'acción desconocida'
-
     return {
-        'poi_id': poi.get('ID', 'unknown'),
+        'poi_id': poi.get('POI_ID', 'unknown'),
         'accion': accion,
         'comentario': clasificacion.get('comentario', 'Sin comentario')
     }
