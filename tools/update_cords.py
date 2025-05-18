@@ -2,7 +2,7 @@ import pandas as pd
 import requests
 import time
 
-API_KEY = "9BVyCDjeFIgpIM0Qostfay1sijVDJ1AhSMr7JfJV8AQ"  # 🔐 Cambia esto por tu HERE API Key real
+API_KEY = "."  # 🔐 Cambia esto por tu HERE API Key real
 INPUT_FILE = "output/pois_con_coord.csv"
 OUTPUT_FILE = "output/resultados_validacion_mejorado.csv"
 
