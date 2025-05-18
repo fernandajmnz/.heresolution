@@ -25,16 +25,18 @@ for idx, poi in pois.iterrows():
         continue
     geom_calle = calle.iloc[0]["GEOMETRY"]
     punto_base = geom_calle.interpolate(perc * geom_calle.length)
-    try:
-        offset_geom = geom_calle.parallel_offset(5, 'left' if lado == 'L' else 'right', join_style=2)
-        poi_geom = offset_geom.interpolate(perc * offset_geom.length)
-    except Exception:
-        poi_geom = punto_base
+    poi_geom = punto_base
     poi_data = poi.to_dict()
     poi_data["geometry"] = poi_geom
     pois_geom_lado.append(poi_data)
 
 pois_geo = gpd.GeoDataFrame(pois_geom_lado, geometry="geometry")
+# Extraer coordenadas de cada POI
+pois_geo["LAT"] = pois_geo.geometry.y
+pois_geo["LON"] = pois_geo.geometry.x
+
+# Guardar CSV con coordenadas para inspección o imágenes satelitales
+pois_geo.to_csv("output/pois_con_coord.csv", index=False)
 
 # Validación y corrección
 resultados = []
